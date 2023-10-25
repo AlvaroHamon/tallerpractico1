@@ -208,9 +208,13 @@ export default function Crear() {
               <Button variant="contained" type="submit">
                 Registrar
               </Button>
-              {sendForm && (
+              {sendForm ? (
                 <Typography bgcolor="lightgreen" textAlign="center">
                   Usuario creado con éxito
+                </Typography>
+              ) : (
+                <Typography bgcolor="#e4605e" textAlign="center">
+                  Falta Información por llenar
                 </Typography>
               )}
             </Formulario>
