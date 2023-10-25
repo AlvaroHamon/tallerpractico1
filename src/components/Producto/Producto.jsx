@@ -1,12 +1,14 @@
-import {
-  Card,
-  CardContent,
-  CardHeader,
-  CardMedia,
-  Grid,
-  Paper,
-  Typography,
-} from "@mui/material";
+import Accordion from "@mui/material/Accordion";
+import AccordionDetails from "@mui/material/AccordionDetails";
+import AccordionSummary from "@mui/material/AccordionSummary";
+import Card from "@mui/material/Card";
+import CardContent from "@mui/material/CardContent";
+import CardHeader from "@mui/material/CardHeader";
+import CardMedia from "@mui/material/CardMedia";
+import Paper from "@mui/material/Paper";
+import Typography from "@mui/material/Typography";
+import Grid from "@mui/material/Grid";
+import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import axios from "axios";
 import { useEffect, useState } from "react";
 
@@ -27,19 +29,27 @@ export default function Productos() {
   }, []);
 
   return (
-    <Paper sx={{ marginTop: 10 }}>
+    <Paper>
       <Grid container spacing={2}>
         {datos.map(({ id, title, category, image, description, price }) => (
-          <Grid item xs={12} sm={6} md={4} lg={2} key={id}>
-            <Card sx={{ margin: 2, padding: 2, height: "100%" }}>
-              <CardHeader title={title} subheader={`Categoria: ${category}`} />
-              <CardMedia component="img" src={image} alt={title} />
+          <Grid item xs={12} sm={6} md={4} lg={3} key={id}>
+            <Card sx={{ margin: 8, padding: 5, height: "100%" }}>
+              <CardHeader title={title} subheader={`Category: ${category}`} />
+              <CardMedia component="img" src={image} alt={title} height="250" />
               <CardContent>
-                <Typography variant="body2" color="textSecondary">
-                  {description}
-                </Typography>
+                <Accordion>
+                  <AccordionSummary expandIcon={<ExpandMoreIcon />}>
+                    {" "}
+                    <Typography variant="h6">Description</Typography>
+                  </AccordionSummary>
+                  <AccordionDetails>
+                    <Typography variant="body2" color="textSecondary">
+                      {description}
+                    </Typography>
+                  </AccordionDetails>
+                </Accordion>
                 <Typography variant="h6" color="textPrimary">
-                  {price}
+                  Price: {price}
                 </Typography>
               </CardContent>
             </Card>

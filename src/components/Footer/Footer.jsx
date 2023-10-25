@@ -1,11 +1,11 @@
-import { AppBar, Container, Toolbar, Typography, styled } from "@mui/material";
+import AppBar from "@mui/material/AppBar";
+import Toolbar from "@mui/material/Toolbar";
+import Container from "@mui/material/Container";
+import Typography from "@mui/material/Typography";
+
 export default function Footer() {
-  const FooterStyle = styled(AppBar)`
-    top: auto;
-    bottom: 0;
-  `;
   return (
-    <FooterStyle component="footer">
+    <AppBar component="footer" sx={{ top: "auto", bottom: 0 }}>
       <Toolbar>
         <Container
           maxWidth="xl"
@@ -16,21 +16,6 @@ export default function Footer() {
           </Typography>
         </Container>
       </Toolbar>
-    </FooterStyle>
-    // <Paper component="footer" sx={{ bottom: 0 }}>
-    //   <IconButton sx={{ color: "white" }}>
-    //     <MenuIcon />
-    //   </IconButton>
-    //   <Typography variant="h5" sx={{ flexGrow: 1 }}>
-    //     Desarrolado por: Alvaro Hamon
-    //   </Typography>
-    //   <Box>
-    //     <IconButton>
-    //       <Typography variant="h5" sx={{ color: "white" }}>
-    //         Iniciar Sesion
-    //       </Typography>
-    //     </IconButton>
-    //   </Box>
-    // </Paper>
+    </AppBar>
   );
 }
