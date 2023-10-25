@@ -14,6 +14,8 @@ import { useState } from "react";
 
 export default function Crear() {
   const [sendForm, setSendForm] = useState(false);
+  const [radioError, setRadioError] = useState(false);
+
   return (
     <>
       <Formik
@@ -25,9 +27,8 @@ export default function Crear() {
           confiContrasena: "",
           genero: "",
         }}
-        onSubmit={(valores) => {
-          console.log(valores);
-          console.log("Formulario enviado");
+        onSubmit={(valores, { resetForm }) => {
+          // console.log(valores);
           if (
             valores.nombre &&
             valores.apellido &&
@@ -35,8 +36,11 @@ export default function Crear() {
             valores.contrasena &&
             valores.genero
           ) {
-            console.log("formulario enviado");
             setSendForm(true);
+            resetForm();
+            setTimeout(() => {
+              setSendForm(false);
+            }, 5000);
           }
         }}
         validate={(valor) => {
@@ -88,8 +92,15 @@ export default function Crear() {
               "La contraseña debe tener entre 8 y 30 caracteres y contener al menos 1 minúscula, 1 mayúscula y 1 número";
           }
 
-          if (valor.contrasena != valor.confiContrasena) {
-            errores.confiContrasena = "Las contraseñas no coinciden";
+          if (valor.contrasena !== valor.confiContrasena) {
+            errores.confiContrasena =
+              "Las contraseñas no coinciden. Vuelve a ingresar la contraseña";
+          }
+          //validacion genero
+          if (!valor.genero) {
+            setRadioError(true);
+          } else {
+            setRadioError(false);
           }
           return errores;
         }}
@@ -180,7 +191,7 @@ export default function Crear() {
                 }
                 fullWidth
               />
-              <FormControl>
+              <FormControl error={touched.genero && radioError ? true : false}>
                 <FormLabel>Genero</FormLabel>
                 <RadioGroup
                   sx={{ display: "flex", flexDirection: "row" }}
@@ -204,17 +215,18 @@ export default function Crear() {
                     label="Otro"
                   ></FormControlLabel>
                 </RadioGroup>
+                {radioError && (
+                  <Typography variant="body2" color="error">
+                    selecciona una opcion
+                  </Typography>
+                )}
               </FormControl>
               <Button variant="contained" type="submit">
                 Registrar
               </Button>
-              {sendForm ? (
+              {sendForm && (
                 <Typography bgcolor="lightgreen" textAlign="center">
                   Usuario creado con éxito
-                </Typography>
-              ) : (
-                <Typography bgcolor="#e4605e" textAlign="center">
-                  Falta Información por llenar
                 </Typography>
               )}
             </Formulario>
