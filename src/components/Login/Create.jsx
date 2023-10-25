@@ -47,16 +47,17 @@ export default function Crear() {
           let errores = {};
           //validar nombre
           if (!valor.nombre) {
-            errores.nombre = "Por favor ingrese un nombre";
+            errores.nombre = "Por favor ingrese su nombre";
           } else if (!/^[A-Za-z\s]{4,40}$/.test(valor.nombre)) {
-            errores.nombre = "El nombre solo puede contener letras y espacios";
+            errores.nombre =
+              "El nombre solo puede contener letras, espacios y debe ser de entre 4 y 40 caracteres";
           }
           //validar apellido
           if (!valor.apellido) {
-            errores.apellido = "Por favor ingrese un apellido";
+            errores.apellido = "Por favor ingrese su apellido";
           } else if (!/^[A-Za-z\s]{4,40}$/.test(valor.apellido)) {
             errores.apellido =
-              "El apellido solo puede contener letras y espacios";
+              "El apellido solo puede contener letras, espacios y debe ser de entre 4 y 40 caracteres";
           }
           //validar correo
           if (!valor.correo) {
@@ -66,8 +67,7 @@ export default function Crear() {
               valor.correo
             )
           ) {
-            errores.correo =
-              "El correo electrónico, no esta en el formato correcto";
+            errores.correo = "Ingrese un correo electrónico valido";
           }
           //validación contraseña
           if (!valor.contrasena) {
