@@ -3,7 +3,7 @@ import MenuIcon from "@mui/icons-material/Menu";
 import { Link } from "react-router-dom";
 export default function Header() {
   return (
-    <AppBar component="nav" position="absolute">
+    <AppBar component="nav" position="static">
       <Toolbar sx={{ display: "flex", justifyContent: "space-between" }}>
         <Link to="/">
           <IconButton
@@ -12,14 +12,14 @@ export default function Header() {
             }}
           >
             <MenuIcon />
-            <Typography variant="h6">Store</Typography>
+            <Typography variant="h6">Inicio</Typography>
           </IconButton>
         </Link>
         <Box>
           <Link to="/login">
             <IconButton>
               <Typography variant="h6" sx={{ color: "white" }}>
-                Login
+                Iniciar Sesión
               </Typography>
             </IconButton>
           </Link>

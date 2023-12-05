@@ -5,7 +5,11 @@ import Typography from "@mui/material/Typography";
 
 export default function Footer() {
   return (
-    <AppBar component="footer" sx={{ top: "auto", bottom: 0 }}>
+    <AppBar
+      component="footer"
+      position="static"
+      sx={{ top: "auto", bottom: 0 }}
+    >
       <Toolbar>
         <Container
           maxWidth="xl"

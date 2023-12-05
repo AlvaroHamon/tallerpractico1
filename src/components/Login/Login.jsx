@@ -1,9 +1,26 @@
 import { Box, Button, TextField, Typography } from "@mui/material";
+import axios from "axios";
 import { Field, Formik } from "formik";
+import { useState } from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 
 export default function Login() {
+  const [error, setError] = useState("");
+
+  const handleLogin = async (values) => {
+    try {
+      const response = await axios.post("https://fakestoreapi.com/auth/login", {
+        username: values.usuario,
+        password: values.contrasena,
+      });
+      console.log("inicio de sesión exitoso: ", response.data);
+    } catch (error) {
+      console.error("error al iniciar sesión: ", error.response.data);
+      setError(error.response.data.message || "error al autenticar");
+    }
+  };
+
   return (
     <Contenedor>
       <Formik
@@ -23,35 +40,41 @@ export default function Login() {
           }
           return errores;
         }}
+        onSubmit={(values) => {
+          handleLogin(values);
+        }}
       >
-        {({ handleSubmit, errors }) => (
-          <Formulario component="form" onSubmit={handleSubmit}>
-            <Typography variant="h5" align="center" color="primary">
-              Iniciar Sesión
-            </Typography>
-            <Field
-              as={TextField}
-              name="usuario"
-              label="Usuario"
-              error={errors.usuario ? true : false}
-              helperText={errors.usuario ? errors.usuario : null}
-            />
-            <Field
-              as={TextField}
-              type="password"
-              name="contrasena"
-              label="Contraseña"
-              error={errors.contrasena ? true : false}
-              helperText={errors.contrasena ? errors.contrasena : null}
-            />
-            <Button type="submit" variant="contained">
-              Iniciar Sesión
-            </Button>
-            <Typography>
-              No tienes cuenta. <Link to="/create">Crear una</Link>
-            </Typography>
-          </Formulario>
-        )}
+        <Formulario component="form">
+          <Typography variant="h5" align="center" color="primary">
+            Iniciar
+          </Typography>
+          <Field
+            as={TextField}
+            name="usuario"
+            label="Usuario"
+            error={!!error}
+            helperText={error}
+          />
+          <Field
+            as={TextField}
+            type="password"
+            name="contrasena"
+            label="Contraseña"
+            error={!!error}
+            helperText={error}
+          />
+          <Button
+            variant="contained"
+            onClick={() => {
+              handleLogin();
+            }}
+          >
+            Iniciar Sesión
+          </Button>
+          <Typography>
+            No tienes cuenta. <Link to="/create">Crear una</Link>
+          </Typography>
+        </Formulario>
       </Formik>
     </Contenedor>
   );
